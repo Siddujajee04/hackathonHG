@@ -1,0 +1,38 @@
+<div data-controller="article" class="grid grid-cols-12">
+  <div class="col-span-5">
+    <div class="p-4 border rounded-md shadow-md mb-4">
+      <span class="text-green-500" data-article-target="welcome"></span>
+      <div>Total Articles: <span id="count_articles"><%= @articles.count %></span></div>
+      <button data-action="click->article#toggle" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+        Create New Article
+      </button>
+      <div data-article-target="form" class="hidden">
+        <%= form_with model: Article.new, data: { action: "submit->article#create" } do |f| %>
+          <div>
+            <%= f.label :title %>
+            <%= f.text_field :title, data: { article_target: "title" } %>
+            <span class="text-red-500 hidden" data-article-target="titleError">This field is required</span>
+          </div>
+          <div>
+            <%= f.label :content %>
+            <%= f.text_field :content, data: { article_target: "content" } %>
+            <span class="text-red-500 hidden" data-article-target="contentError">This field is required</span>
+          </div>
+          <%= f.submit "Create", class: "bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div id="articles" class="">
+      <div class="col-span-1 ml-5">
+        <% @articles.each do |article| %>
+          <%= render partial: "articles/article", locals: { article: article} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-span-7 mt-5 p-4 border rounded-md shadow-md">
+    <h3 class="text-lg font-bold">Article Preview</h3>
+    <%= turbo_frame_tag "article_details" %>
+  </div>
+</div>

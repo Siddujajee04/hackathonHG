@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "article_details" do %>
+  <div class="flex"><span class="font-bold">Title: </span><span> <%= @article.title %></span></div>
+  <div class="flex"><span class="font-bold">Comment: </span><span> <%= @article.content %></span></div>
+  <%= turbo_stream.replace(dom_id(@article, "id"), partial: "articles/article", locals:{ article: @article }) %>
+<% end %>

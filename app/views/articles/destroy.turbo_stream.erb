@@ -1,0 +1,5 @@
+<%#= turbo_stream.remove dom_id(@post) %>
+<turbo-stream action="remove" target="<%= dom_id(@article, "id") %>"></turbo-stream>
+<%= turbo_stream.update "count_articles" do %>
+  <%= @articles %>
+<% end %>

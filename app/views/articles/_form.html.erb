@@ -1,0 +1,19 @@
+<%= turbo_frame_tag dom_id(@article, "id") do %>
+  <div class="grid grid-cols-2" data-controller="article">
+    <%= form_with model: @article, data: { action: "submit->article#create", article_target: 'form' } do |f| %>
+      <div>
+        <%= f.label :title %>
+        <%= f.text_field :title, class: 'border border-black', data: { article_target: "title" } %>
+        <span class="text-red-500 hidden" data-article-target="titleError">This field is required</span>
+      </div>
+      <br>
+      <div>
+        <%= f.label :content %>
+        <%= f.text_field :content, class: 'border border-black', data: { article_target: "content" } %>
+        <span class="text-red-500 hidden" data-article-target="contentError">This field is required</span>
+      </div>
+      <br>
+      <%= f.submit "Save", class: "bg-green-500 p-2" %>
+    <% end %>
+  </div>
+<% end %>
